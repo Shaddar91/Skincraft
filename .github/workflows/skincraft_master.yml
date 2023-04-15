@@ -27,7 +27,7 @@ jobs:
       # Upload the app on S3 bucket
       - name: Deploy app build to S3 bucket
         id: deploy
-        run: aws s3 sync . s3://${{ secrets.BUCKET }} --cache-control "max-age=120000" --delete
+        run: aws s3 sync . s3://${{ secrets.BUCKET }} --cache-control "max-age=120000" --delete --exclude ".git/*" --exclude ".github/*" --exclude "README*"
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
